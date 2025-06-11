@@ -1,0 +1,17 @@
+<launch>
+  <node
+    pkg="teleop_twist_keyboard"
+    name="keyboard_teleop"
+    type="teleop_twist_keyboard.py"
+    output="screen"
+    launch-prefix="xterm -e"
+  />
+  
+  <node
+    pkg="choreonoid_ros"
+    name="choreonoid"
+    type="choreonoid"
+    args="$(find choreonoid_ros_tutorial)/project/ros_tank_tutorial.cnoid --start-simulation"
+  >
+  </node>
+</launch>
