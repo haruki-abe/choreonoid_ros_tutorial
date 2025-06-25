@@ -10,6 +10,7 @@ items:
       name: "World"
       plugin: Body
       class: WorldItem
+      is_selected: true
       data:
         collision_detection: false
         collision_detector: AISTCollisionDetector
@@ -24,12 +25,13 @@ items:
           data:
             file: "../../choreonoid/share/model/Tank/SimpleTank.body"
             format: CHOREONOID-BODY
-            rootPosition: [ 0, 0, 0.1 ]
+            rootPosition: [ 1.89983358e-09, 2.05191704e-10, 0.0997500155 ]
             rootAttitude: [
-              1, 0, 0,
-              0, 1, 0,
-              0, 0, 1 ]
-            jointDisplacements: [ 0, 0, 0, 0 ]
+              1, -2.23307684e-10, 1.82033899e-08,
+              2.23307647e-10, 1, 1.99591645e-09,
+              -1.82033899e-08, -1.99591645e-09, 1 ]
+            jointDisplacements: [ -1.54249e-09, -0.561853, 0, 0 ]
+            initialJointDisplacements: [ 0, 0, 0, 0 ]
             initialRootPosition: [ 0, 0, 0.1 ]
             initialRootAttitude: [
               1, 0, 0,
@@ -47,7 +49,6 @@ items:
               name: "SimpleController"
               plugin: Body
               class: SimpleControllerItem
-              is_selected: true
               data:
                 isNoDelayMode: false
                 controllerOptions: ""
@@ -55,8 +56,23 @@ items:
                 base_directory: "Controller directory"
                 reloading: false
                 export_symbols: false
+              children:
+                -
+                  id: 4
+                  name: "AISTSimulator-SimpleTank"
+                  plugin: Body
+                  class: BodyMotionItem
+                  data:
+                    offsetTime: 0
+                -
+                  id: 5
+                  name: "BodyPublisher"
+                  plugin: ROS
+                  class: BodyPublisherItem
+                  data:
+                    max_publishing_rate: 30
         -
-          id: 4
+          id: 7
           name: "Labo1"
           plugin: Body
           class: BodyItem
@@ -82,7 +98,7 @@ items:
             scene_sensitive: true
             zmp: [ 0, 0, 0 ]
         -
-          id: 5
+          id: 9
           name: "AISTSimulator"
           plugin: Body
           class: AISTSimulatorItem
@@ -99,6 +115,7 @@ items:
             record_collision_data: false
             controller_options: ""
             block_scene_view_edit_mode: false
+            time_sync_items: [ 6, 8 ]
             dynamicsMode: "Forward dynamics"
             integrationMode: semi-implicit_euler
             gravity: [ 0, 0, -9.80665 ]
@@ -113,6 +130,32 @@ items:
             kinematicWalking: false
             2Dmode: false
             oldAccelSensorMode: false
+          children:
+            -
+              id: 10
+              name: "GLVisionSimulator"
+              plugin: Body
+              class: GLVisionSimulatorItem
+              data:
+                enabled: true
+                max_frame_rate: 1000
+                max_latency: 1
+                record_vision_data: false
+                thread_mode: Sensor
+                best_effort: true
+                all_scene_objects: true
+                range_sensor_precision_ratio: 2
+                depth_error: 0
+                enable_head_light: true
+                enable_additional_lights: true
+                antialiasing: false
+        -
+          id: 11
+          name: "WorldROS"
+          plugin: ROS
+          class: WorldROSItem
+          data:
+            max_clock_publishing_rate: 100
 views:
   -
     id: 0
@@ -125,7 +168,7 @@ views:
     class: ItemTreeView
     mounted: true
     state:
-      expanded: [ 1, 2 ]
+      expanded: [ 1, 2, 3, 4, 7, 9 ]
   -
     id: 2
     plugin: Base
@@ -157,9 +200,9 @@ views:
         -
           camera: [ System, Perspective ]
           isCurrent: true
-          eye: [ -4.26622, -1.95612, 1.31531 ]
-          direction: [ 0.841016, 0.487403, -0.2348 ]
-          up: [ 0.20315, 0.117734, 0.972044 ]
+          eye: [ -4.13554, -2.18398, 1.18402 ]
+          direction: [ 0.815782, 0.540605, -0.205537 ]
+          up: [ 0.171332, 0.113539, 0.978649 ]
         -
           camera: [ System, Orthographic ]
           orthoHeight: 20
@@ -240,9 +283,9 @@ views:
     mounted: true
 toolbars:
   "TimeBar":
-    current_time: 0
+    current_time: 111.06
     min_time: 0
-    max_time: 30
+    max_time: 111.06
     frame_rate: 1000
     playback_frame_rate: 60
     idle_loop_driven_mode: false
@@ -282,7 +325,7 @@ Body:
         show_cm_projection: false
         show_zmp: false
       -
-        body_item: 4
+        body_item: 7
         show_cm: false
         show_cm_projection: false
         show_zmp: false

@@ -1,0 +1,21 @@
+newmtl Material
+Ka 1 1 1
+Kd 0.8 0.8 0.8
+Ks 0.5 0.5 0.5
+Ns 324
+Ke 0 0 0
+d 1
+Tr 0
+illum 2
+
+newmtl Material.001
+Ka 1 1 1
+Kd 0.8 0.8 0.8
+Ks 0.5 0.5 0.5
+Ns 225
+Ke 0 0 0
+d 1
+Tr 0
+illum 2
+map_Kd shorttrack.png
+
