@@ -111,6 +111,11 @@ public:
 
         resample_interval_steps = static_cast<int>(std::round(env_cfg->get("resampling_time_s", 4.0) / dt));
 
+        // base speed
+        base_speed = env_cfg->get("base_speed", 1.5);
+        K_yaw = env_cfg->get("K_yaw", 2.0);
+        K_epsi = env_cfg->get("K_epsi", 0.2);
+
         // joint values
         num_actions = env_cfg->get("num_actions", 1);
         last_action = VectorXd::Zero(num_actions);
